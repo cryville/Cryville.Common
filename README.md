@@ -1,4 +1,4 @@
-[ÆÕÍ¨»°£¨¼òÌå£©](README_cmn-hans.md)
+[æ™®é€šè¯ï¼ˆç®€ä½“ï¼‰](README_cmn-hans.md)
 
 # Cryville.Common
 This is a repository for storing commonly used classes in our projects. These classes do not necessarily have relationship with each other and therefore it is NOT RECOMMENDED to build a library directly with all the code from this repository. Instead, pick what you need and simply copy them into your own project.
