@@ -176,8 +176,8 @@ namespace Cryville.Common.Unity {
 		}
 		/// <inheritdoc />
 		public override bool Done() {
-			if (!handler.isDone) return false;
-			if (handler.texture != null) {
+			if (!www.isDone) return false;
+			if (handler.isDone && handler.texture != null) {
 				var buffer = handler.texture;
 				/*var result = new Texture2D(buffer.width, buffer.height, buffer.format, true);
 				if (SystemInfo.copyTextureSupport.HasFlag(CopyTextureSupport.Basic)) {
