@@ -24,7 +24,25 @@ namespace Cryville.Common.Unity {
 		}
 
 		/// <summary>
-		/// Converts a <see cref="Single" /> array to <see cref="Vector2" />.
+		/// Converts an array of <see cref="int" /> to a <see cref="Vector2Int" />.
+		/// </summary>
+		/// <param name="array">The array.</param>
+		/// <returns>The converted <see cref="Vector2Int" />.</returns>
+		/// <exception cref="ArgumentException">The length of <paramref name="array" /> is not 2.</exception>
+		public static Vector2Int ToVector2Int(this int[] array) {
+			if (array.Length == 2) return new Vector2Int(array[0], array[1]);
+			else throw new ArgumentException("Array length not 2");
+		}
+
+		/// <summary>
+		/// Converts a <see cref="Vector2Int" /> to an array of <see cref="int" />.
+		/// </summary>
+		/// <param name="array">The vector.</param>
+		/// <returns>The converted <see cref="int" /> array.</returns>
+		public static int[] ToArray(this Vector2Int vec) => new int[] { vec.x, vec.y };
+
+		/// <summary>
+		/// Converts an array of <see cref="float" /> to a <see cref="Vector2" />.
 		/// </summary>
 		/// <param name="array">The array.</param>
 		/// <returns>The converted <see cref="Vector2" />.</returns>
