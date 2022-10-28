@@ -42,7 +42,7 @@ namespace Cryville.Common.Math {
 			}
 		}
 		/// <summary>
-		/// Performs dot operation with a <see cref="System.Single" /> column vector.
+		/// Performs dot operation with a <see cref="float" /> column vector.
 		/// </summary>
 		/// <param name="lhs">The lefthand column vector.</param>
 		/// <param name="o">The vector operator.</param>
@@ -54,11 +54,11 @@ namespace Cryville.Common.Math {
 			return res;
 		}
 		/// <summary>
-		/// Creates a <see cref="System.Single" /> column vector and fills it with polynomial coefficients.
+		/// Creates a <see cref="float" /> column vector and fills it with polynomial coefficients.
 		/// </summary>
 		/// <param name="size">The size of the column vector.</param>
 		/// <param name="num">The base number.</param>
-		/// <returns>A <see cref="System.Single" /> column vector filled with polynomial coefficients.</returns>
+		/// <returns>A <see cref="float" /> column vector filled with polynomial coefficients.</returns>
 		public static ColumnVector<float> WithPolynomialCoefficients(int size, float num) {
 			var m = new ColumnVector<float>(size);
 			for (var i = 0; i < size; i++)
