@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Cryville.Common {
 	/// <summary>
@@ -32,6 +33,14 @@ namespace Cryville.Common {
 			b.Append((timeSpan.Minutes % 60).ToString("00") + ":");
 			b.Append((timeSpan.TotalSeconds % 60).ToString("00." + new string('0', digits)));
 			return b.ToString();
+		}
+		/// <summary>
+		/// Escapes special characters in a file name.
+		/// </summary>
+		/// <param name="name">The file name excluding the extension.</param>
+		/// <returns>The escaped file name.</returns>
+		public static string EscapeFileName(string name) {
+			return Regex.Replace(name, @"[\/\\\<\>\:\x22\|\?\*\p{Cc}\.\s]", "_");
 		}
 	}
 }
