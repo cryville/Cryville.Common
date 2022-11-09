@@ -16,6 +16,13 @@ namespace Cryville.Common {
 		object _syncRoot = new object();
 
 		/// <summary>
+		/// Creates an instance of the <see cref="IdentifierManager" /> class.
+		/// </summary>
+		public IdentifierManager() {
+			Request(this);
+		}
+
+		/// <summary>
 		/// Requests an integer ID for an identifier.
 		/// </summary>
 		/// <param name="ident">The identifier.</param>
