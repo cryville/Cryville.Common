@@ -200,8 +200,7 @@ namespace Cryville.Common.Unity.UI {
 
 		void GenerateLine(int index, int line) {
 			for (int j = 0; j < LineItemCount; j++) {
-				var child = GameObject.Instantiate(m_itemTemplate);
-				child.transform.SetParent(transform, false);
+				var child = GameObject.Instantiate(m_itemTemplate, transform, false);
 				lines[index][j] = child;
 			}
 			LoadLine(index, line);
