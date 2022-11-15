@@ -168,5 +168,19 @@ namespace Cryville.Common {
 			}
 			return result;
 		}
+
+		/// <summary>
+		/// Gets the namespace qualified name of a type.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <returns>The namespace qualified name of the class.</returns>
+		public static string GetNamespaceQualifiedName(Type type) {
+			string result = type.Namespace + "." + type.Name;
+			var typeargs = type.GetGenericArguments();
+			if (typeargs.Length > 0) {
+				result = string.Format("{0}[{1}]", result, string.Join(",", from a in typeargs select GetNamespaceQualifiedName(a)));
+			}
+			return result;
+		}
 	}
 }
