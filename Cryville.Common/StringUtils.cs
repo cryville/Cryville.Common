@@ -40,7 +40,9 @@ namespace Cryville.Common {
 		/// <param name="name">The file name excluding the extension.</param>
 		/// <returns>The escaped file name.</returns>
 		public static string EscapeFileName(string name) {
-			return Regex.Replace(name, @"[\/\\\<\>\:\x22\|\?\*\p{Cc}\.\s]", "_");
+			var result = Regex.Replace(name, @"[\/\\\<\>\:\x22\|\?\*\p{Cc}]", "_").TrimEnd(' ', '.');
+			if (result.Length == 0) return "_";
+			return result;
 		}
 	}
 }
