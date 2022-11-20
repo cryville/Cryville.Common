@@ -126,8 +126,8 @@ namespace Cryville.Common.Unity.UI {
 		void Update() {
 			Vector2 cprectsize = ((RectTransform)transform.parent).rect.size;
 			if (cprectsize != pprectsize) {
-				OnFrameUpdate();
 				pprectsize = cprectsize;
+				OnFrameUpdate();
 			}
 		}
 #pragma warning restore IDE0051
