@@ -84,7 +84,7 @@ namespace Cryville.Common.Buffers {
 		}
 
 		class Enumerator : IEnumerator<char> {
-			TargetString _self;
+			readonly TargetString _self;
 			int _index = -1;
 			public Enumerator(TargetString self) { _self = self; }
 

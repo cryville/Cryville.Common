@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace Cryville.Common {
@@ -17,7 +18,7 @@ namespace Cryville.Common {
 		public static void SetLogPath(string path) {
 			logPath = path;
 			var dir = new DirectoryInfo(path);
-			if (!dir.Exists) Directory.CreateDirectory(dir.FullName);
+			if (!dir.Exists) dir.Create();
 		}
 		/// <summary>
 		/// Logs to the specified logger.
@@ -40,7 +41,7 @@ namespace Cryville.Common {
 		public static void Create(string key, Logger logger) {
 			Instances[key] = logger;
 			if (logPath != null) {
-				Files[key] = new StreamWriter(logPath + "/" + ((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds).ToString() + "-" + key + ".log") {
+				Files[key] = new StreamWriter(logPath + "/" + ((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds).ToString(CultureInfo.InvariantCulture) + "-" + key + ".log") {
 					AutoFlush = true
 				};
 			}

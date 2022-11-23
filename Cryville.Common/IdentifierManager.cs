@@ -10,10 +10,10 @@ namespace Cryville.Common {
 		/// </summary>
 		public static IdentifierManager SharedInstance = new IdentifierManager();
 
-		Dictionary<object, int> _idents = new Dictionary<object, int>();
-		List<object> _ids = new List<object>(); 
+		readonly Dictionary<object, int> _idents = new Dictionary<object, int>();
+		readonly List<object> _ids = new List<object>();
 
-		object _syncRoot = new object();
+		readonly object _syncRoot = new object();
 
 		/// <summary>
 		/// Creates an instance of the <see cref="IdentifierManager" /> class.
