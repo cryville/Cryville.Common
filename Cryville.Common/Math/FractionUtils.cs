@@ -48,5 +48,31 @@ namespace Cryville.Common.Math {
 				}
 			}
 		}
+
+		/// <summary>
+		/// Gets the greatest common divisor (GCD) of two integers.
+		/// </summary>
+		/// <param name="n">The first integer.</param>
+		/// <param name="d">The second integer.</param>
+		/// <returns>The greatest common divisor (GCD) of the two integers.</returns>
+		public static int GreatestCommonDivisor(int n, int d) {
+			while (d != 0) {
+				int t = d;
+				d = n % d;
+				n = t;
+			}
+			return n;
+		}
+
+		/// <summary>
+		/// Simplifies a fraction.
+		/// </summary>
+		/// <param name="n">The numerator.</param>
+		/// <param name="d">The denominator.</param>
+		public static void Simplify(ref int n, ref int d) {
+			var gcd = GreatestCommonDivisor(n, d);
+			n /= gcd;
+			d /= gcd;
+		}
 	}
 }
