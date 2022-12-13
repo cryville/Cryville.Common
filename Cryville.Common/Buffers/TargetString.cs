@@ -73,7 +73,7 @@ namespace Cryville.Common.Buffers {
 			if (!_invalidated) return;
 			_invalidated = false;
 			var ev = OnUpdate;
-			if (ev != null) OnUpdate.Invoke();
+			if (ev != null) ev.Invoke();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() {
