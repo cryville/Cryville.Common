@@ -145,7 +145,7 @@ namespace Cryville.Common {
 		/// <returns>An array containing all the subclasses of the type in the current app domain.</returns>
 		public static Type[] GetSubclassesOf<T>() where T : class {
 			var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-			IEnumerable<Type> r = new List<Type>();
+			IEnumerable<Type> r = Enumerable.Empty<Type>();
 			foreach (var a in assemblies)
 				r = r.Concat(a.GetTypes().Where(
 					t => t.IsClass
