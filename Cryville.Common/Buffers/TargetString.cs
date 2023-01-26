@@ -18,7 +18,9 @@ namespace Cryville.Common.Buffers {
 		/// Creates an instance of the <see cref="TargetString" /> class.
 		/// </summary>
 		/// <param name="capacity">The initial capacity of the string.</param>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity" /> is less than 0.</exception>
 		public TargetString(int capacity) {
+			if (capacity < 0) throw new ArgumentOutOfRangeException("capacity");
 			_arr = new char[capacity];
 		}
 		/// <summary>
@@ -49,11 +51,13 @@ namespace Cryville.Common.Buffers {
 		/// <summary>
 		/// The length of the string.
 		/// </summary>
+		/// <exception cref="ArgumentOutOfRangeException">The value specified for a set operation is less than 0.</exception>
 		public int Length {
 			get {
 				return m_length;
 			}
 			set {
+				if (Length < 0) throw new ArgumentOutOfRangeException("length");
 				if (m_length == value) return;
 				if (_arr.Length < value) {
 					var len = m_length;
@@ -76,17 +80,27 @@ namespace Cryville.Common.Buffers {
 			if (ev != null) ev.Invoke();
 		}
 
-		IEnumerator IEnumerable.GetEnumerator() {
-			return GetEnumerator();
+		/// <summary>
+		/// Returns an enumerator that iterates through the <see cref="TargetString" />.
+		/// </summary>
+		/// <returns>A <see cref="Enumerator" /> for the <see cref="TargetString" />.</returns>
+		public Enumerator GetEnumerator() {
+			return new Enumerator(this);
 		}
-		public IEnumerator<char> GetEnumerator() {
+		IEnumerator<char> IEnumerable<char>.GetEnumerator() {
+			return new Enumerator(this);
+		}
+		IEnumerator IEnumerable.GetEnumerator() {
 			return new Enumerator(this);
 		}
 
-		class Enumerator : IEnumerator<char> {
+		public struct Enumerator : IEnumerator<char> {
 			readonly TargetString _self;
-			int _index = -1;
-			public Enumerator(TargetString self) { _self = self; }
+			int _index;
+			internal Enumerator(TargetString self) {
+				_self = self;
+				_index = -1;
+			}
 
 			public char Current {
 				get {
