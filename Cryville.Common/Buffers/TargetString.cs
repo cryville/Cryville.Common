@@ -18,9 +18,9 @@ namespace Cryville.Common.Buffers {
 		/// Creates an instance of the <see cref="TargetString" /> class.
 		/// </summary>
 		/// <param name="capacity">The initial capacity of the string.</param>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity" /> is less than 0.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity" /> is less than or equal to 0.</exception>
 		public TargetString(int capacity) {
-			if (capacity < 0) throw new ArgumentOutOfRangeException("capacity");
+			if (capacity <= 0) throw new ArgumentOutOfRangeException("capacity");
 			_arr = new char[capacity];
 		}
 		/// <summary>
@@ -60,7 +60,7 @@ namespace Cryville.Common.Buffers {
 				if (Length < 0) throw new ArgumentOutOfRangeException("length");
 				if (m_length == value) return;
 				if (_arr.Length < value) {
-					var len = m_length;
+					var len = _arr.Length;
 					while (len < value) len *= 2;
 					var arr2 = new char[len];
 					Array.Copy(_arr, arr2, m_length);
@@ -79,6 +79,7 @@ namespace Cryville.Common.Buffers {
 			var ev = OnUpdate;
 			if (ev != null) ev.Invoke();
 		}
+		internal char[] TrustedAsArray() { return _arr; }
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the <see cref="TargetString" />.
