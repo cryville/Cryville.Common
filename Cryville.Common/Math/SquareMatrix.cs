@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnsafeIL;
 
 namespace Cryville.Common.Math {
 	/// <summary>
@@ -40,11 +40,11 @@ namespace Cryville.Common.Math {
 		/// </summary>
 		/// <typeparam name="T">The vector type.</typeparam>
 		/// <param name="v">The column vector.</param>
+		/// <param name="result">The result column vector.</param>
 		/// <param name="o">The column operator.</param>
-		/// <returns>The column vector eliminated.</returns>
-		public ColumnVector<T> Eliminate<T>(ColumnVector<T> v, IVectorOperator<T> o) {
+		public void Eliminate<T>(ColumnVector<T> v, ColumnVector<T> result, IVectorOperator<T> o) {
 			int s = Size;
-			Array.Copy(content, buffer, Size * Size);
+			FillBuffer();
 			for (int i = 0; i < s; i++) refl[i] = i;
 			for (int r = 0; r < s; r++) {
 				for (int r0 = r; r0 < s; r0++)
@@ -66,14 +66,17 @@ namespace Cryville.Common.Math {
 					v[or1] = o.Add(v[or1], o.ScalarMultiply(-sf1, v[or]));
 				}
 			}
-			ColumnVector<T> res = new ColumnVector<T>(s);
 			for (int r2 = s - 1; r2 >= 0; r2--) {
 				var v2 = v[refl[r2]];
 				for (int c2 = r2 + 1; c2 < s; c2++)
-					v2 = o.Add(v2, o.ScalarMultiply(-buffer[refl[r2], c2], res[refl[c2]]));
-				res[refl[r2]] = v2;
+					v2 = o.Add(v2, o.ScalarMultiply(-buffer[refl[r2], c2], result[refl[c2]]));
+				result[refl[r2]] = v2;
 			}
-			return res;
+		}
+		unsafe void FillBuffer() {
+			fixed (void* ptrc = content, ptrb = buffer) {
+				Unsafe.CopyBlock(ptrb, ptrc, (uint)(Size * Size * sizeof(float)));
+			}
 		}
 		/// <summary>
 		/// Creates a square matrix and fills it with polynomial coefficients.
