@@ -14,6 +14,10 @@
 			_objs = new T[capacity];
 		}
 		/// <summary>
+		/// The count of objects rented from the pool.
+		/// </summary>
+		public int RentedCount { get { return _index; } }
+		/// <summary>
 		/// Rents a object from the pool.
 		/// </summary>
 		/// <returns>The rented object.</returns>
@@ -24,6 +28,7 @@
 				_objs[_index++] = null;
 			}
 			if (obj == null) obj = Construct();
+			else Reset(obj);
 			return obj;
 		}
 		/// <summary>
@@ -38,5 +43,10 @@
 		/// </summary>
 		/// <returns>The new instance.</returns>
 		protected abstract T Construct();
+		/// <summary>
+		/// Resets an object.
+		/// </summary>
+		/// <param name="obj">The object.</param>
+		protected virtual void Reset(T obj) { }
 	}
 }
