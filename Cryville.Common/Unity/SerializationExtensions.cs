@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Cryville.Common.Unity {
@@ -37,7 +37,7 @@ namespace Cryville.Common.Unity {
 		/// <summary>
 		/// Converts a <see cref="Vector2Int" /> to an array of <see cref="int" />.
 		/// </summary>
-		/// <param name="array">The vector.</param>
+		/// <param name="vec">The vector.</param>
 		/// <returns>The converted <see cref="int" /> array.</returns>
 		public static int[] ToArray(this Vector2Int vec) => new int[] { vec.x, vec.y };
 
@@ -51,5 +51,12 @@ namespace Cryville.Common.Unity {
 			if (array.Length == 2) return new Vector2(array[0], array[1]);
 			else throw new ArgumentException("Array length not 2");
 		}
+
+		/// <summary>
+		/// Converts a <see cref="Vector2" /> to an array of <see cref="float" />.
+		/// </summary>
+		/// <param name="vec">The vector.</param>
+		/// <returns>The converted <see cref="float" /> array.</returns>
+		public static float[] ToArray(this Vector2 vec) => new float[] { vec.x, vec.y };
 	}
 }
