@@ -8,24 +8,7 @@ namespace Cryville.Common {
 	/// Provides a set of <see langword="static" /> methods for refletion.
 	/// </summary>
 	public static class ReflectionHelper {
-		static readonly Type[] emptyTypeArray = {};
-		/// <summary>
-		/// Gets the parameterless constructor of a type.
-		/// </summary>
-		/// <param name="type">The type.</param>
-		/// <returns>The parameterless constructor of the type.</returns>
-		public static ConstructorInfo GetEmptyConstructor(Type type) {
-			return type.GetConstructor(emptyTypeArray);
-		}
 		static readonly object[] emptyObjectArray = {};
-		/// <summary>
-		/// Invokes the parameterless constructor of a type and returns the result.
-		/// </summary>
-		/// <param name="type">The type.</param>
-		/// <returns>The created instance.</returns>
-		public static object InvokeEmptyConstructor(Type type) {
-			return GetEmptyConstructor(type).Invoke(emptyObjectArray);
-		}
 		
 		/// <summary>
 		/// Tries to find a member with the specified attribute type in a type.
