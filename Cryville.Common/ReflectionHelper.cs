@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -70,6 +70,22 @@ namespace Cryville.Common {
 			);
 			if (mil.Length != 1)
 				throw new MissingMemberException(type.Name, name);
+			return mil[0];
+		}
+
+		/// <summary>
+		/// Tries to get the member from a type with the specified name.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <param name="name">The name of the member.</param>
+		/// <returns>The member. <see langword="null" /> when not found.</returns>
+		public static MemberInfo TryGetMember(Type type, string name) {
+			var mil = type.GetMember(
+				name,
+				MemberTypes.Field | MemberTypes.Property,
+				BindingFlags.Public | BindingFlags.Instance
+			);
+			if (mil.Length != 1) return null;
 			return mil[0];
 		}
 
