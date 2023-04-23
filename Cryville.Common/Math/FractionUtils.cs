@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Cryville.Common.Math {
 	/// <summary>
@@ -12,12 +12,12 @@ namespace Cryville.Common.Math {
 		/// <param name="error">The error.</param>
 		/// <param name="n">The numerator.</param>
 		/// <param name="d">The denominator.</param>
-		/// <exception cref="ArgumentOutOfRangeException"><paramref name="value" /> is less than 0 or <paramref name="error" /> is not greater than 0 or not less than 1.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="value" /> is less than 0 or <paramref name="error" /> is not greater than 0 or greater than 1.</exception>
 		public static void ToFraction(double value, double error, out int n, out int d) {
 			if (value < 0.0)
 				throw new ArgumentOutOfRangeException("value", "Must be >= 0.");
-			if (error <= 0.0 || error >= 1.0)
-				throw new ArgumentOutOfRangeException("accuracy", "Must be > 0 and < 1.");
+			if (error <= 0.0 || error > 1.0)
+				throw new ArgumentOutOfRangeException("error", "Must be > 0 and <= 1.");
 
 			int num = (int)System.Math.Floor(value);
 			value -= num;
