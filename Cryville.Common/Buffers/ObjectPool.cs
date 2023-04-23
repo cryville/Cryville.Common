@@ -1,4 +1,4 @@
-﻿namespace Cryville.Common.Buffers {
+namespace Cryville.Common.Buffers {
 	/// <summary>
 	/// A resource pool that allows reusing instances of type <typeparamref name="T" />.
 	/// </summary>
@@ -28,7 +28,6 @@
 				_objs[_index++] = null;
 			}
 			if (obj == null) obj = Construct();
-			else Reset(obj);
 			return obj;
 		}
 		/// <summary>
@@ -36,7 +35,10 @@
 		/// </summary>
 		/// <param name="obj">The object to return.</param>
 		public void Return(T obj) {
-			if (_index > 0) _objs[--_index] = obj;
+			if (_index > 0) {
+				Reset(obj);
+				_objs[--_index] = obj;
+			}
 		}
 		/// <summary>
 		/// Constructs a new instance of type <typeparamref name="T" />.
