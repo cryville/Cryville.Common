@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -43,6 +43,22 @@ namespace Cryville.Common {
 			var result = Regex.Replace(name, @"[\/\\\<\>\:\x22\|\?\*\p{Cc}]", "_").TrimEnd(' ', '.');
 			if (result.Length == 0) return "_";
 			return result;
+		}
+		/// <summary>
+		/// Gets the process path from a command.
+		/// </summary>
+		/// <param name="command">The command.</param>
+		/// <returns>The process path.</returns>
+		public static string GetProcessPathFromCommand(string command) {
+			command = command.Trim();
+			if (command[0] == '"') {
+				return command.Substring(1, command.IndexOf('"', 1) - 1);
+			}
+			else {
+				int e = command.IndexOf(' ');
+				if (e == -1) return command;
+				else return command.Substring(0, e);
+			}
 		}
 	}
 }
