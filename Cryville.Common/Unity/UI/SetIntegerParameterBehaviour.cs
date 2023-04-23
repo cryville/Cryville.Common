@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Cryville.Common.Unity.UI {
 	public class SetIntegerParameterBehaviour : SetParameterBehaviour {

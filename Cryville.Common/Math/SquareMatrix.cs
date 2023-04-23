@@ -1,4 +1,4 @@
-﻿using UnsafeIL;
+using UnsafeIL;
 
 namespace Cryville.Common.Math {
 	/// <summary>

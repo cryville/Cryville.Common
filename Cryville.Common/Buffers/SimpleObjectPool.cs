@@ -1,4 +1,4 @@
-﻿namespace Cryville.Common.Buffers {
+namespace Cryville.Common.Buffers {
 	/// <summary>
 	/// A resource pool that allows reusing instances of type <typeparamref name="T" />, which has a parameterless constructor.
 	/// </summary>

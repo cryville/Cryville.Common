@@ -1,4 +1,4 @@
-﻿namespace Cryville.Common.Buffers {
+namespace Cryville.Common.Buffers {
 	/// <summary>
 	/// A resource pool that allows reusing instances of arrays of type <typeparamref name="T" />.
 	/// </summary>
