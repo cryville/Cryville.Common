@@ -9,6 +9,7 @@ namespace Cryville.Common.Buffers {
 		/// </summary>
 		/// <param name="capacity">The capacity of the pool.</param>
 		public SimpleObjectPool(int capacity) : base(capacity) { }
+		/// <inheritdoc />
 		protected override T Construct() {
 			return new T();
 		}

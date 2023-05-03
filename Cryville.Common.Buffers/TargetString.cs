@@ -7,6 +7,9 @@ namespace Cryville.Common.Buffers {
 	/// An auto-resized <see cref="char" /> array as a variable-length string used as a target that is modified frequently.
 	/// </summary>
 	public class TargetString : IEnumerable<char> {
+		/// <summary>
+		/// Occurs when <see cref="Validate" /> is called if the string is invalidated.
+		/// </summary>
 		public event Action OnUpdate;
 		char[] _arr;
 		bool _invalidated;
@@ -31,7 +34,8 @@ namespace Cryville.Common.Buffers {
 		/// <exception cref="ArgumentOutOfRangeException"><paramref name="index" /> is less than 0 or not less than <see cref="Length" />.</exception>
 		/// <remarks>
 		/// <para>Set <see cref="Length" /> to a desired value before updating the characters.</para>
-		/// <para>Call <see cref=" Validate" /> after all the characters are updated.</para>
+		/// <para>Call <see cref="Validate" /> after all the characters are updated.</para>
+		/// <para>Changing any character invalidates the string.</para>
 		/// </remarks>
 		public char this[int index] {
 			get {
@@ -52,6 +56,9 @@ namespace Cryville.Common.Buffers {
 		/// The length of the string.
 		/// </summary>
 		/// <exception cref="ArgumentOutOfRangeException">The value specified for a set operation is less than 0.</exception>
+		/// <remarks>
+		/// <para>Changing the length of the string invalidates the string.</para>
+		/// </remarks>
 		public int Length {
 			get {
 				return m_length;
@@ -76,10 +83,11 @@ namespace Cryville.Common.Buffers {
 		public void Validate() {
 			if (!_invalidated) return;
 			_invalidated = false;
-			var ev = OnUpdate;
-			if (ev != null) ev.Invoke();
+			OnUpdate?.Invoke();
 		}
-		internal char[] TrustedAsArray() { return _arr; }
+#pragma warning disable CS1591
+		public char[] TrustedAsArray() { return _arr; }
+#pragma warning restore CS1591
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the <see cref="TargetString" />.
@@ -95,6 +103,7 @@ namespace Cryville.Common.Buffers {
 			return new Enumerator(this);
 		}
 
+		/// <inheritdoc />
 		public struct Enumerator : IEnumerator<char> {
 			readonly TargetString _self;
 			int _index;
@@ -103,6 +112,7 @@ namespace Cryville.Common.Buffers {
 				_index = -1;
 			}
 
+			/// <inheritdoc />
 			public char Current {
 				get {
 					if (_index < 0)
@@ -113,10 +123,12 @@ namespace Cryville.Common.Buffers {
 
 			object IEnumerator.Current { get { return Current; } }
 
+			/// <inheritdoc />
 			public void Dispose() {
 				_index = -2;
 			}
 
+			/// <inheritdoc />
 			public bool MoveNext() {
 				if (_index == -2) return false;
 				_index++;
@@ -127,6 +139,7 @@ namespace Cryville.Common.Buffers {
 				return true;
 			}
 
+			/// <inheritdoc />
 			public void Reset() {
 				_index = -1;
 			}

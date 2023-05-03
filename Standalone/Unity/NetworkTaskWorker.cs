@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_5_4_OR_NEWER
@@ -179,7 +179,7 @@ namespace Cryville.Common.Unity {
 			if (!www.isDone) return false;
 			if (handler.isDone && handler.texture != null) {
 				var buffer = handler.texture;
-				/*var result = new Texture2D(buffer.width, buffer.height, buffer.format, true);
+				var result = new Texture2D(buffer.width, buffer.height, buffer.format, true);
 				if (SystemInfo.copyTextureSupport.HasFlag(CopyTextureSupport.Basic)) {
 					Graphics.CopyTexture(buffer, 0, 0, result, 0, 0);
 				}
@@ -188,8 +188,8 @@ namespace Cryville.Common.Unity {
 				}
 				result.Apply(true, true);
 				Texture2D.Destroy(buffer);
-				Callback(true, result);*/
-				Callback(true, buffer);
+				Callback(true, result);
+				// Callback(true, buffer);
 			}
 			else {
 				Callback(false, null);

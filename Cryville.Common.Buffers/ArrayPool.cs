@@ -35,7 +35,7 @@ namespace Cryville.Common.Buffers {
 		/// Rents an array that is at least the specified size from the pool.
 		/// </summary>
 		/// <param name="size">The minimum size of the array.</param>
-		/// <returns>An array of type <see cref="T" /> that is at least the specified size.</returns>
+		/// <returns>An array of type <typeparamref name="T" /> that is at least the specified size.</returns>
 		public T[] Rent(int size) {
 			int len2 = size;
 			if (len2 < 16) len2 = 16;

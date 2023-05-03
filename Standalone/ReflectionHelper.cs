@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Cryville.Common {
 	/// <summary>
-	/// Provides a set of <see langword="static" /> methods for refletion.
+	/// Provides a set of <see langword="static" /> methods for reflection.
 	/// </summary>
 	public static class ReflectionHelper {
 		static readonly object[] emptyObjectArray = {};
@@ -138,32 +138,15 @@ namespace Cryville.Common {
 		}
 
 		/// <summary>
-		/// Gets all the subclasses of a type in the current app domain.
-		/// </summary>
-		/// <typeparam name="T">The type.</typeparam>
-		/// <returns>An array containing all the subclasses of the type in the current app domain.</returns>
-		public static Type[] GetSubclassesOf<T>() where T : class {
-			var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-			IEnumerable<Type> r = Enumerable.Empty<Type>();
-			foreach (var a in assemblies)
-				r = r.Concat(a.GetTypes().Where(
-					t => t.IsClass
-					&& !t.IsAbstract
-					&& t.IsSubclassOf(typeof(T))
-				));
-			return r.ToArray();
-		}
-
-		/// <summary>
 		/// Gets a simple name of a type.
 		/// </summary>
 		/// <param name="type">The type.</param>
 		/// <returns>A simple name of the class.</returns>
 		public static string GetSimpleName(Type type) {
 			string result = type.Name;
-			var typeargs = type.GetGenericArguments();
-			if (typeargs.Length > 0) {
-				result = string.Format("{0}[{1}]", result, string.Join(",", from a in typeargs select GetSimpleName(a)));
+			var typeArgs = type.GetGenericArguments();
+			if (typeArgs.Length > 0) {
+				result = string.Format("{0}[{1}]", result, string.Join(",", (from a in typeArgs select GetSimpleName(a)).ToArray()));
 			}
 			return result;
 		}
@@ -175,9 +158,9 @@ namespace Cryville.Common {
 		/// <returns>The namespace qualified name of the class.</returns>
 		public static string GetNamespaceQualifiedName(Type type) {
 			string result = type.Namespace + "." + type.Name;
-			var typeargs = type.GetGenericArguments();
-			if (typeargs.Length > 0) {
-				result = string.Format("{0}[{1}]", result, string.Join(",", from a in typeargs select GetNamespaceQualifiedName(a)));
+			var typeArgs = type.GetGenericArguments();
+			if (typeArgs.Length > 0) {
+				result = string.Format("{0}[{1}]", result, string.Join(",", (from a in typeArgs select GetNamespaceQualifiedName(a)).ToArray()));
 			}
 			return result;
 		}

@@ -13,7 +13,7 @@ namespace Cryville.Common.Buffers {
 		/// <remarks>
 		/// <para>The <see cref="Rent(TCategory)" /> and <see cref="Return(TCategory, TObject)" /> method select an underlying pool directly from this set with the category as the key. When overridden, this set must be available since construction.</para>
 		/// </remarks>
-		protected abstract IReadOnlyDictionary<TCategory, ObjectPool<TObject>> Buckets { get; }
+		protected abstract IDictionary<TCategory, ObjectPool<TObject>> Buckets { get; }
 		/// <summary>
 		/// The count of objects rented from the set of pools.
 		/// </summary>

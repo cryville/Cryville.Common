@@ -8,7 +8,7 @@ namespace Cryville.Common {
 		/// <summary>
 		/// A shared instance of the <see cref="IdentifierManager" /> class.
 		/// </summary>
-		public static IdentifierManager SharedInstance = new IdentifierManager();
+		public static IdentifierManager Shared = new IdentifierManager();
 
 		readonly Dictionary<object, int> _idents = new Dictionary<object, int>();
 		readonly List<object> _ids = new List<object>();

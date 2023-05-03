@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-namespace Cryville.Common {
+namespace Cryville.Common.Logging {
 	/// <summary>
 	/// A logger.
 	/// </summary>
@@ -29,8 +29,8 @@ namespace Cryville.Common {
 		/// <param name="format">The format string.</param>
 		/// <param name="args">The arguments for formatting.</param>
 		public static void Log(string key, int level, string module, string format, params object[] args) {
-			if (!Instances.ContainsKey(key)) return;
-			Instances[key].Log(level, module, string.Format(format, args));
+			if (!Instances.TryGetValue(key, out var logger)) return;
+			logger.Log(level, module, string.Format(format, args));
 			if (Files.ContainsKey(key)) Files[key].WriteLine("[{0:O}] [{1}] <{2}> {3}", DateTime.UtcNow, level, module, string.Format(format, args));
 		}
 		/// <summary>
@@ -74,9 +74,7 @@ namespace Cryville.Common {
 		/// <param name="callback">The callback function.</param>
 		/// <exception cref="ArgumentNullException"><paramref name="callback" /> is <see langword="null" />.</exception>
 		public InstantLogger(Action<int, string, string> callback) {
-			if (callback == null)
-				throw new ArgumentNullException("callback");
-			this.callback = callback;
+			this.callback = callback ?? throw new ArgumentNullException("callback");
 		}
 		/// <inheritdoc />
 		public override void Log(int level, string module, string msg) {

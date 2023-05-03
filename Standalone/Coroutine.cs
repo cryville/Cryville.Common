@@ -15,7 +15,8 @@ namespace Cryville.Common {
 			return true;
 		}
 		public bool Tick(double minTime) {
-			_stopwatch.Restart();
+			_stopwatch.Reset();
+			_stopwatch.Start();
 			while (_stopwatch.Elapsed.TotalSeconds < minTime) {
 				if (!_enumerator.MoveNext()) return false;
 				Progress = _enumerator.Current;

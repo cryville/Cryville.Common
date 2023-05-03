@@ -43,7 +43,7 @@ namespace Cryville.Common.Buffers {
 			if (len2 < 16) len2 = 16;
 			var list = _buckets[GetID(len2)].Rent();
 			if (list.Count < size)
-				for (int i = list.Count; i < size; i++) list.Add(default(T));
+				for (int i = list.Count; i < size; i++) list.Add(default);
 			else if (list.Count > size)
 				list.RemoveRange(size, list.Count - size);
 			return list;
