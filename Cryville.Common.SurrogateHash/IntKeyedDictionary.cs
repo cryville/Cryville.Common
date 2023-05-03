@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace Cryville.Common.Collections.Specialized {
 	/// <summary>
@@ -11,7 +10,7 @@ namespace Cryville.Common.Collections.Specialized {
 	/// <typeparam name="T">The type of the values in the dictionary.</typeparam>
 	[DebuggerTypeProxy(typeof(IntKeyedDictionaryDebugView<>))]
 	[DebuggerDisplay("Count = {Count}")]
-	public class IntKeyedDictionary<T> : IDictionary<int, T>, IDictionary, IReadOnlyDictionary<int, T> {
+	public class IntKeyedDictionary<T> : IDictionary<int, T>, IDictionary {
 
 		private struct Entry {
 			public int next;        // Index of next entry, -1 if last
@@ -54,7 +53,6 @@ namespace Cryville.Common.Collections.Specialized {
 
 		public KeyCollection Keys {
 			get {
-				Contract.Ensures(Contract.Result<KeyCollection>() != null);
 				if (keys == null) keys = new KeyCollection(this);
 				return keys;
 			}
@@ -67,29 +65,14 @@ namespace Cryville.Common.Collections.Specialized {
 			}
 		}
 
-		IEnumerable<int> IReadOnlyDictionary<int, T>.Keys {
-			get {
-				if (keys == null) keys = new KeyCollection(this);
-				return keys;
-			}
-		}
-
 		public ValueCollection Values {
 			get {
-				Contract.Ensures(Contract.Result<ValueCollection>() != null);
 				if (values == null) values = new ValueCollection(this);
 				return values;
 			}
 		}
 
 		ICollection<T> IDictionary<int, T>.Values {
-			get {
-				if (values == null) values = new ValueCollection(this);
-				return values;
-			}
-		}
-
-		IEnumerable<T> IReadOnlyDictionary<int, T>.Values {
 			get {
 				if (values == null) values = new ValueCollection(this);
 				return values;
@@ -258,7 +241,6 @@ namespace Cryville.Common.Collections.Specialized {
 		}
 
 		private void Resize(int newSize, bool forceNewHashCodes) {
-			Contract.Assert(newSize >= entries.Length);
 			int[] newBuckets = new int[newSize];
 			for (int i = 0; i < newBuckets.Length; i++) newBuckets[i] = -1;
 			Entry[] newEntries = new Entry[newSize];
@@ -295,7 +277,7 @@ namespace Cryville.Common.Collections.Specialized {
 						}
 						entries[i].key = -1;
 						entries[i].next = freeList;
-						entries[i].value = default(T);
+						entries[i].value = default;
 						freeList = i;
 						freeCount++;
 						version++;
@@ -312,7 +294,7 @@ namespace Cryville.Common.Collections.Specialized {
 				value = entries[i].value;
 				return true;
 			}
-			value = default(T);
+			value = default;
 			return false;
 		}
 
@@ -325,7 +307,7 @@ namespace Cryville.Common.Collections.Specialized {
 			if (i >= 0) {
 				return entries[i].value;
 			}
-			return default(T);
+			return default;
 		}
 
 		bool ICollection<KeyValuePair<int, T>>.IsReadOnly {
@@ -357,8 +339,7 @@ namespace Cryville.Common.Collections.Specialized {
 				throw new ArgumentException("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
 			}
 
-			KeyValuePair<int,T>[] pairs = array as KeyValuePair<int,T>[];
-			if (pairs != null) {
+			if (array is KeyValuePair<int, T>[] pairs) {
 				CopyTo(pairs, index);
 			}
 			else if (array is DictionaryEntry[]) {
@@ -371,8 +352,7 @@ namespace Cryville.Common.Collections.Specialized {
 				}
 			}
 			else {
-				object[] objects = array as object[];
-				if (objects == null) {
+				if (!(array is object[] objects)) {
 					throw new ArgumentException("Target array type is not compatible with the type of items in the collection.");
 				}
 
@@ -611,14 +591,11 @@ namespace Cryville.Common.Collections.Specialized {
 		[DebuggerTypeProxy(typeof(IntKeyedDictionaryKeyCollectionDebugView<>))]
 		[DebuggerDisplay("Count = {Count}")]
 		[Serializable]
-		public sealed class KeyCollection : ICollection<int>, ICollection, IReadOnlyCollection<int> {
+		public sealed class KeyCollection : ICollection<int>, ICollection {
 			private readonly IntKeyedDictionary<T> dictionary;
 
 			public KeyCollection(IntKeyedDictionary<T> dictionary) {
-				if (dictionary == null) {
-					throw new ArgumentNullException("dictionary");
-				}
-				this.dictionary = dictionary;
+				this.dictionary = dictionary ?? throw new ArgumentNullException("dictionary");
 			}
 
 			public Enumerator GetEnumerator() {
@@ -698,13 +675,11 @@ namespace Cryville.Common.Collections.Specialized {
 					throw new ArgumentException("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
 				}
 
-				int[] keys = array as int[];
-				if (keys != null) {
+				if (array is int[] keys) {
 					CopyTo(keys, index);
 				}
 				else {
-					object[] objects = array as object[];
-					if (objects == null) {
+					if (!(array is object[] objects)) {
 						throw new ArgumentException("Target array type is not compatible with the type of items in the collection.");
 					}
 
@@ -740,7 +715,7 @@ namespace Cryville.Common.Collections.Specialized {
 					this.dictionary = dictionary;
 					version = dictionary.version;
 					index = 0;
-					currentKey = default(int);
+					currentKey = default;
 				}
 
 				public void Dispose() {
@@ -761,7 +736,7 @@ namespace Cryville.Common.Collections.Specialized {
 					}
 
 					index = dictionary.count + 1;
-					currentKey = default(int);
+					currentKey = default;
 					return false;
 				}
 
@@ -787,7 +762,7 @@ namespace Cryville.Common.Collections.Specialized {
 					}
 
 					index = 0;
-					currentKey = default(int);
+					currentKey = default;
 				}
 			}
 		}
@@ -795,14 +770,11 @@ namespace Cryville.Common.Collections.Specialized {
 		[DebuggerTypeProxy(typeof(IntKeyedDictionaryValueCollectionDebugView<>))]
 		[DebuggerDisplay("Count = {Count}")]
 		[Serializable]
-		public sealed class ValueCollection : ICollection<T>, ICollection, IReadOnlyCollection<T> {
+		public sealed class ValueCollection : ICollection<T>, ICollection {
 			private readonly IntKeyedDictionary<T> dictionary;
 
 			public ValueCollection(IntKeyedDictionary<T> dictionary) {
-				if (dictionary == null) {
-					throw new ArgumentNullException("dictionary");
-				}
-				this.dictionary = dictionary;
+				this.dictionary = dictionary ?? throw new ArgumentNullException("dictionary");
 			}
 
 			public Enumerator GetEnumerator() {
@@ -882,13 +854,11 @@ namespace Cryville.Common.Collections.Specialized {
 					throw new ArgumentException("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
 				}
 
-				T[] values = array as T[];
-				if (values != null) {
+				if (array is T[] values) {
 					CopyTo(values, index);
 				}
 				else {
-					object[] objects = array as object[];
-					if (objects == null) {
+					if (!(array is object[] objects)) {
 						throw new ArgumentException("Target array type is not compatible with the type of items in the collection.");
 					}
 
@@ -924,7 +894,7 @@ namespace Cryville.Common.Collections.Specialized {
 					this.dictionary = dictionary;
 					version = dictionary.version;
 					index = 0;
-					currentValue = default(T);
+					currentValue = default;
 				}
 
 				public void Dispose() {
@@ -944,7 +914,7 @@ namespace Cryville.Common.Collections.Specialized {
 						index++;
 					}
 					index = dictionary.count + 1;
-					currentValue = default(T);
+					currentValue = default;
 					return false;
 				}
 
@@ -969,7 +939,7 @@ namespace Cryville.Common.Collections.Specialized {
 						throw new InvalidOperationException("Collection was modified; enumeration operation may not execute.");
 					}
 					index = 0;
-					currentValue = default(T);
+					currentValue = default;
 				}
 			}
 		}
@@ -979,10 +949,7 @@ namespace Cryville.Common.Collections.Specialized {
 		private readonly IntKeyedDictionary<T> dict;
 
 		public IntKeyedDictionaryDebugView(IntKeyedDictionary<T> dictionary) {
-			if (dictionary == null)
-				throw new ArgumentNullException("dictionary");
-
-			this.dict = dictionary;
+			this.dict = dictionary ?? throw new ArgumentNullException("dictionary");
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
@@ -999,10 +966,7 @@ namespace Cryville.Common.Collections.Specialized {
 		private readonly IntKeyedDictionary<T> collection;
 
 		public IntKeyedDictionaryKeyCollectionDebugView(IntKeyedDictionary<T> collection) {
-			if (collection == null)
-				throw new ArgumentNullException("collection");
-
-			this.collection = collection;
+			this.collection = collection ?? throw new ArgumentNullException("collection");
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
@@ -1019,10 +983,7 @@ namespace Cryville.Common.Collections.Specialized {
 		private readonly IntKeyedDictionary<T> collection;
 
 		public IntKeyedDictionaryValueCollectionDebugView(IntKeyedDictionary<T> collection) {
-			if (collection == null)
-				throw new ArgumentNullException("collection");
-
-			this.collection = collection;
+			this.collection = collection ?? throw new ArgumentNullException("collection");
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]

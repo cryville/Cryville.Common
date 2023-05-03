@@ -29,8 +29,7 @@ namespace Cryville.Common {
 		/// <returns>The integer ID.</returns>
 		public int Request(object ident) {
 			lock (_syncRoot) {
-				int id;
-				if (!_idents.TryGetValue(ident, out id)) {
+				if (!_idents.TryGetValue(ident, out int id)) {
 					_idents.Add(ident, id = _idents.Count);
 					_ids.Add(ident);
 				}
