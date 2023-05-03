@@ -1,7 +1,7 @@
 [普通话（简体）](README_cmn-hans.md)
 
 # Cryville.Common
-This is a repository for storing commonly used classes in our projects. These classes do not necessarily have relationship with each other and therefore it is NOT RECOMMENDED to build a library directly with all the code from this repository. Instead, pick what you need and simply copy them into your own project.
+This is a repository for storing commonly used classes in our projects. Please go into the subfolders to see detailed information.
 
 Some classes MAY be incomplete and no warranty is guaranteed.
 
