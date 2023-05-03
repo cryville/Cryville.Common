@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Cryville.Common.Logging")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("P R C")]
+[assembly: AssemblyCompany("Cryville")]
 [assembly: AssemblyProduct("Cryville.Common.Logging")]
-[assembly: AssemblyCopyright("Copyright © P R C 2023")]
+[assembly: AssemblyCopyright("Copyright © Cryville 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
