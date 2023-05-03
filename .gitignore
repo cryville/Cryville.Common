@@ -5,6 +5,8 @@
 
 # User-specific files
 /Standalone/*.csproj
+/_Output
+*.py
 *.rsuser
 *.suo
 *.user
