@@ -380,9 +380,13 @@
 
 		.method public hidebysig static 
 			!!T& AsRef<T> (
-				!!T& source
+				[in] !!T& source
 			) cil managed aggressiveinlining 
 		{
+			.param [1]
+				.custom instance void [System.Runtime]System.Runtime.CompilerServices.IsReadOnlyAttribute::.ctor() = (
+					01 00 00 00
+				)
 			// Method begins at RVA 0x22d8
 			// Header size: 12
 			// Code size: 2 (0x2)
