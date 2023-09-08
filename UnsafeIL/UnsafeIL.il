@@ -384,7 +384,7 @@
 			) cil managed aggressiveinlining 
 		{
 			.param [1]
-				.custom instance void [System.Runtime]System.Runtime.CompilerServices.IsReadOnlyAttribute::.ctor() = (
+				.custom instance void [mscorlib]System.Runtime.CompilerServices.IsReadOnlyAttribute::.ctor() = (
 					01 00 00 00
 				)
 			// Method begins at RVA 0x22d8
@@ -411,7 +411,7 @@
 		} // end of method Unsafe::As
 
 		.method public hidebysig static 
-			!!T& Unbox<valuetype .ctor ([System.Runtime]System.ValueType) T> (
+			!!T& Unbox<valuetype .ctor ([mscorlib]System.ValueType) T> (
 				object 'box'
 			) cil managed aggressiveinlining 
 		{

@@ -407,7 +407,7 @@
 		} // end of method Unsafe::As
 
 		.method public hidebysig static 
-			!!T& Unbox<valuetype .ctor ([System.Runtime]System.ValueType) T> (
+			!!T& Unbox<valuetype .ctor ([mscorlib]System.ValueType) T> (
 				object 'box'
 			) cil managed // aggressiveinlining 
 		{
