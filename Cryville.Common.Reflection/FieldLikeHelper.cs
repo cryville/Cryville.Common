@@ -6,7 +6,7 @@ namespace Cryville.Common.Reflection {
 	/// Provides a set of <see langword="static" /> methods for field and property.
 	/// </summary>
 	public static class FieldLikeHelper {
-		static readonly object[] emptyObjectArray = {};
+		static readonly object[] emptyObjectArray = { };
 
 		/// <summary>
 		/// Finds the member with the specified attribute type in the specified type.
@@ -62,7 +62,7 @@ namespace Cryville.Common.Reflection {
 		/// <exception cref="ArgumentException"><paramref name="mi" /> is not a field or a property.</exception>
 		public static object GetValue(MemberInfo mi, object obj) {
 			if (mi is FieldInfo fi) return fi.GetValue(obj);
-			else if (mi is PropertyInfo pi) return pi.GetValue(obj, new object[] { });
+			else if (mi is PropertyInfo pi) return pi.GetValue(obj, emptyObjectArray);
 			else throw new ArgumentException("Member is not field or property.");
 		}
 
