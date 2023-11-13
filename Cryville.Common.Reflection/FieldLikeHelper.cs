@@ -8,6 +8,17 @@ namespace Cryville.Common.Reflection {
 	public static class FieldLikeHelper {
 		static readonly object[] emptyObjectArray = { };
 
+		[ThreadStatic]
+		static object[] m_singleObjectArray;
+		static object[] SingleObjectArray {
+			get {
+				if (m_singleObjectArray == null) {
+					m_singleObjectArray = new object[1];
+				}
+				return m_singleObjectArray;
+			}
+		}
+
 		/// <summary>
 		/// Finds the member with the specified attribute type in the specified type.
 		/// </summary>
@@ -77,6 +88,39 @@ namespace Cryville.Common.Reflection {
 		public static void SetValue(MemberInfo mi, object obj, object value, Binder binder = null) {
 			if (mi is FieldInfo fi) fi.SetValue(obj, value, BindingFlags.Default, binder, null);
 			else if (mi is PropertyInfo pi) pi.SetValue(obj, value, BindingFlags.Default, binder, emptyObjectArray, null);
+			else throw new ArgumentException("Member is not field or property.");
+		}
+
+		/// <summary>
+		/// Gets a delegate that gets the value of a member of an object.
+		/// </summary>
+		/// <param name="mi">The member.</param>
+		/// <returns>A delegate that gets the value.</returns>
+		/// <exception cref="ArgumentException"><paramref name="mi" /> is not a field or a property.</exception>
+		public static Func<object, object> GetGetValueDelegate(MemberInfo mi) {
+			if (mi is FieldInfo fi) return fi.GetValue;
+			else if (mi is PropertyInfo pi) {
+				var m = pi.GetGetMethod(true);
+				return obj => m.Invoke(obj, emptyObjectArray);
+			}
+			else throw new ArgumentException("Member is not field or property.");
+		}
+
+		/// <summary>
+		/// Gets a delegate that sets the value of a member of an object.
+		/// </summary>
+		/// <param name="mi">The member.</param>
+		/// <returns>A delegate that sets the value.</returns>
+		/// <exception cref="ArgumentException"><paramref name="mi" /> is not a field or a property.</exception>
+		public static Action<object, object> GetSetValueDelegate(MemberInfo mi) {
+			if (mi is FieldInfo fi) return fi.SetValue;
+			else if (mi is PropertyInfo pi) {
+				var m = pi.GetSetMethod(true);
+				return (obj, value) => {
+					SingleObjectArray[0] = value;
+					m.Invoke(obj, SingleObjectArray);
+				};
+			}
 			else throw new ArgumentException("Member is not field or property.");
 		}
 	}
