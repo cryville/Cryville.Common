@@ -109,12 +109,18 @@ namespace Cryville.Common.Logging {
 		/// <param name="stream">The stream.</param>
 		public StreamLoggerListener(Stream stream) : this(stream, new UTF8Encoding(false, true)) { }
 
+		/// <summary>
+		/// Whether to flush the stream every time a log is written.
+		/// </summary>
+		public bool AutoFlush { get; set; }
+
 		readonly object _syncRoot = new();
 		/// <inheritdoc />
 		protected internal override void OnLog(int level, string category, string message) {
 			lock (_syncRoot) {
 				var buf = encoding.GetBytes(string.Format(CultureInfo.InvariantCulture, "[{0:O}] [{1}] <{2}> {3}\n", DateTime.UtcNow, level, category, message));
 				stream.Write(buf, 0, buf.Length);
+				if (AutoFlush) stream.Flush();
 			}
 		}
 	}
