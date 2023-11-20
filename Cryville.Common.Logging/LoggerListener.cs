@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
@@ -74,20 +74,25 @@ namespace Cryville.Common.Logging {
 	/// A <see cref="LoggerListener" /> that buffers the logs for enumeration.
 	/// </summary>
 	public class BufferedLoggerListener : LoggerListener {
-		readonly ConcurrentQueue<LogEntry> buffer = new();
+		readonly Queue<LogEntry> _buffer = new();
 		record struct LogEntry(int Level, string Category, string Message);
 
 		/// <inheritdoc />
 		protected internal override void OnLog(int level, string category, string message) {
-			buffer.Enqueue(new LogEntry(level, category, message));
+			lock (_buffer) {
+				_buffer.Enqueue(new LogEntry(level, category, message));
+			}
 		}
 		/// <summary>
 		/// Enumerates the buffered logs.
 		/// </summary>
 		/// <param name="callback">The callback function to receive the logs.</param>
 		public void Enumerate(LogHandler callback) {
-			while (buffer.TryDequeue(out var i)) {
-				callback?.Invoke(i.Level, i.Category, i.Message);
+			lock (_buffer) {
+				while (_buffer.Count > 0) {
+					var i = _buffer.Dequeue();
+					callback?.Invoke(i.Level, i.Category, i.Message);
+				}
 			}
 		}
 	}
