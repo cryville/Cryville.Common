@@ -113,7 +113,7 @@ namespace Cryville.Common.Logging {
 		/// <inheritdoc />
 		protected internal override void OnLog(int level, string category, string message) {
 			lock (_syncRoot) {
-				var buf = encoding.GetBytes(string.Format(CultureInfo.InvariantCulture, "[{0:O}] [{1}] <{2}> {3}", DateTime.UtcNow, level, category, message));
+				var buf = encoding.GetBytes(string.Format(CultureInfo.InvariantCulture, "[{0:O}] [{1}] <{2}> {3}\n", DateTime.UtcNow, level, category, message));
 				stream.Write(buf, 0, buf.Length);
 			}
 		}
