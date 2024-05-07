@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -50,6 +51,7 @@ namespace Cryville.Common.Buffers {
 		/// <param name="list">The list to return.</param>
 		[SuppressMessage("Design", "CA1002")]
 		public void Return(List<T?> list) {
+			if (list is null) throw new ArgumentNullException(nameof(list));
 			int len2 = list.Capacity;
 			if (len2 < 16) len2 = 16;
 			_buckets[GetID(len2)].Return(list);

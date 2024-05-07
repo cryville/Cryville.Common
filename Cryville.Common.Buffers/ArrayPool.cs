@@ -1,3 +1,5 @@
+using System;
+
 namespace Cryville.Common.Buffers {
 	/// <summary>
 	/// A resource pool that allows reusing instances of arrays of type <typeparamref name="T" />.
@@ -41,6 +43,7 @@ namespace Cryville.Common.Buffers {
 		/// </summary>
 		/// <param name="arr">The array to return.</param>
 		public void Return(T[] arr) {
+			if (arr is null) throw new ArgumentNullException(nameof(arr));
 			int len2 = arr.Length;
 			if (len2 < 16) len2 = 16;
 			_buckets[GetID(len2)].Return(arr);
