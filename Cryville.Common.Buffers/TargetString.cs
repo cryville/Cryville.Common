@@ -85,6 +85,13 @@ namespace Cryville.Common.Buffers {
 			_invalidated = false;
 			Updated?.Invoke();
 		}
+		/// <summary>
+		/// Returns the string the current <see cref="TargetString" /> represents.
+		/// </summary>
+		/// <returns>The string the current <see cref="TargetString" /> represents.</returns>
+		public override string ToString() {
+			return new string(_arr, 0, m_length);
+		}
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the <see cref="TargetString" />.
