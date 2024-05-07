@@ -3,31 +3,26 @@ namespace Cryville.Common.Buffers {
 	/// A resource pool that allows reusing instances of type <typeparamref name="T" />.
 	/// </summary>
 	/// <typeparam name="T">The type of the objects in the pool.</typeparam>
-	public abstract class ObjectPool<T> where T : class {
+	/// <param name="capacity">The capacity of the pool.</param>
+	public abstract class ObjectPool<T>(int capacity) where T : class {
 		int _index;
-		readonly T[] _objs;
-		/// <summary>
-		/// Creates an instance of the <see cref="ObjectPool{T}" /> class.
-		/// </summary>
-		/// <param name="capacity">The capacity of the pool.</param>
-		public ObjectPool(int capacity) {
-			_objs = new T[capacity];
-		}
+		readonly T?[] _objs = new T[capacity];
+
 		/// <summary>
 		/// The count of objects rented from the pool.
 		/// </summary>
-		public int RentedCount { get { return _index; } }
+		public int RentedCount => _index;
 		/// <summary>
 		/// Rents a object from the pool.
 		/// </summary>
 		/// <returns>The rented object.</returns>
 		public T Rent() {
-			T obj = null;
+			T? obj = null;
 			if (_index < _objs.Length) {
 				obj = _objs[_index];
 				_objs[_index++] = null;
 			}
-			if (obj == null) obj = Construct();
+			obj ??= Construct();
 			return obj;
 		}
 		/// <summary>

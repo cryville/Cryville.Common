@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cryville.Common.Buffers {
 	/// <summary>
@@ -6,14 +7,8 @@ namespace Cryville.Common.Buffers {
 	/// </summary>
 	/// <typeparam name="T">The item type of the lists in the pool.</typeparam>
 	public class ListPool<T> {
-		private class Bucket : ObjectPool<List<T>> {
-			readonly int _size;
-			public Bucket(int size, int capacity) : base(capacity) {
-				_size = size;
-			}
-			protected override List<T> Construct() {
-				return new List<T>(_size);
-			}
+		sealed class Bucket(int size, int capacity) : ObjectPool<List<T?>>(capacity) {
+			protected override List<T?> Construct() => new(size);
 		}
 		readonly Bucket[] _buckets;
 		/// <summary>
@@ -38,7 +33,8 @@ namespace Cryville.Common.Buffers {
 		/// </summary>
 		/// <param name="size">The size of the list.</param>
 		/// <returns>A <see cref="List{T}" /> of the specified size.</returns>
-		public List<T> Rent(int size) {
+		[SuppressMessage("Design", "CA1002")]
+		public List<T?> Rent(int size) {
 			int len2 = size;
 			if (len2 < 16) len2 = 16;
 			var list = _buckets[GetID(len2)].Rent();
@@ -52,7 +48,8 @@ namespace Cryville.Common.Buffers {
 		/// Returns a rented list to the pool.
 		/// </summary>
 		/// <param name="list">The list to return.</param>
-		public void Return(List<T> list) {
+		[SuppressMessage("Design", "CA1002")]
+		public void Return(List<T?> list) {
 			int len2 = list.Capacity;
 			if (len2 < 16) len2 = 16;
 			_buckets[GetID(len2)].Return(list);
@@ -64,8 +61,6 @@ namespace Cryville.Common.Buffers {
 			for (; size != 0; size >>= 1) num++;
 			return num;
 		}
-		static int GetSize(int id) {
-			return 0x10 << id;
-		}
+		static int GetSize(int id) => 0x10 << id;
 	}
 }

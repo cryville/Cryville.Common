@@ -10,7 +10,7 @@ namespace Cryville.Common.Buffers {
 		/// <summary>
 		/// Occurs when <see cref="Validate" /> is called if the string is invalidated.
 		/// </summary>
-		public event Action OnUpdate;
+		public event Action? Updated;
 		char[] _arr;
 		bool _invalidated;
 		/// <summary>
@@ -23,7 +23,7 @@ namespace Cryville.Common.Buffers {
 		/// <param name="capacity">The initial capacity of the string.</param>
 		/// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity" /> is less than or equal to 0.</exception>
 		public TargetString(int capacity) {
-			if (capacity <= 0) throw new ArgumentOutOfRangeException("capacity");
+			if (capacity <= 0) throw new ArgumentOutOfRangeException(nameof(capacity));
 			_arr = new char[capacity];
 		}
 		/// <summary>
@@ -40,12 +40,12 @@ namespace Cryville.Common.Buffers {
 		public char this[int index] {
 			get {
 				if (index < 0 || index >= m_length)
-					throw new ArgumentOutOfRangeException("index");
+					throw new ArgumentOutOfRangeException(nameof(index));
 				return _arr[index];
 			}
 			set {
 				if (index < 0 || index >= m_length)
-					throw new ArgumentOutOfRangeException("index");
+					throw new ArgumentOutOfRangeException(nameof(index));
 				if (_arr[index] == value) return;
 				_arr[index] = value;
 				_invalidated = true;
@@ -64,7 +64,7 @@ namespace Cryville.Common.Buffers {
 				return m_length;
 			}
 			set {
-				if (Length < 0) throw new ArgumentOutOfRangeException("length");
+				if (Length < 0) throw new ArgumentOutOfRangeException(nameof(value));
 				if (m_length == value) return;
 				if (_arr.Length < value) {
 					var len = _arr.Length;
@@ -83,7 +83,7 @@ namespace Cryville.Common.Buffers {
 		public void Validate() {
 			if (!_invalidated) return;
 			_invalidated = false;
-			OnUpdate?.Invoke();
+			Updated?.Invoke();
 		}
 #pragma warning disable CS1591
 		public char[] TrustedAsArray() { return _arr; }
@@ -113,7 +113,7 @@ namespace Cryville.Common.Buffers {
 			}
 
 			/// <inheritdoc />
-			public char Current {
+			public readonly char Current {
 				get {
 					if (_index < 0)
 						throw new InvalidOperationException(_index == -1 ? "Enum not started" : "Enum ended");
@@ -121,12 +121,10 @@ namespace Cryville.Common.Buffers {
 				}
 			}
 
-			object IEnumerator.Current { get { return Current; } }
+			readonly object IEnumerator.Current => Current;
 
 			/// <inheritdoc />
-			public void Dispose() {
-				_index = -2;
-			}
+			public void Dispose() => _index = -2;
 
 			/// <inheritdoc />
 			public bool MoveNext() {
@@ -140,9 +138,7 @@ namespace Cryville.Common.Buffers {
 			}
 
 			/// <inheritdoc />
-			public void Reset() {
-				_index = -1;
-			}
+			public void Reset() => _index = -1;
 		}
 	}
 }

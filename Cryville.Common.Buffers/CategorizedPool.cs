@@ -43,26 +43,19 @@ namespace Cryville.Common.Buffers {
 	/// </summary>
 	/// <typeparam name="TCategory">The category type.</typeparam>
 	/// <typeparam name="TObject">The type of the objects in the pool.</typeparam>
-	public class CategorizedPoolAccessor<TCategory, TObject> where TObject : class {
-		readonly CategorizedPool<TCategory, TObject> _pool;
-		static readonly SimpleObjectPool<Dictionary<TObject, TCategory>> _dictPool
-			= new SimpleObjectPool<Dictionary<TObject, TCategory>>(1024);
-		Dictionary<TObject, TCategory> _rented;
-		/// <summary>
-		/// Creates an instance of the <see cref="CategorizedPoolAccessor{TCategory, TObject}" /> class.
-		/// </summary>
-		/// <param name="pool">The categorized pool.</param>
-		public CategorizedPoolAccessor(CategorizedPool<TCategory, TObject> pool) {
-			_pool = pool;
-		}
+	/// <param name="pool">The categorized pool.</param>
+	public class CategorizedPoolAccessor<TCategory, TObject>(CategorizedPool<TCategory, TObject> pool) where TObject : class {
+		static readonly SimpleObjectPool<Dictionary<TObject, TCategory>> _dictPool = new(1024);
+		Dictionary<TObject, TCategory>? _rented;
+
 		/// <summary>
 		/// Rents an object from the pool.
 		/// </summary>
 		/// <param name="category">The category.</param>
 		/// <returns>The rented object.</returns>
 		public TObject Rent(TCategory category) {
-			var obj = _pool.Rent(category);
-			if (_rented == null) _rented = _dictPool.Rent();
+			var obj = pool.Rent(category);
+			_rented ??= _dictPool.Rent();
 			_rented.Add(obj, category);
 			return obj;
 		}
@@ -71,7 +64,8 @@ namespace Cryville.Common.Buffers {
 		/// </summary>
 		/// <param name="obj">The object to return.</param>
 		public void Return(TObject obj) {
-			_pool.Return(_rented[obj], obj);
+			if (_rented == null) return;
+			pool.Return(_rented[obj], obj);
 			_rented.Remove(obj);
 		}
 		/// <summary>
@@ -80,7 +74,7 @@ namespace Cryville.Common.Buffers {
 		public void ReturnAll() {
 			if (_rented == null) return;
 			foreach (var obj in _rented) {
-				_pool.Return(obj.Value, obj.Key);
+				pool.Return(obj.Value, obj.Key);
 			}
 			_rented.Clear();
 			_dictPool.Return(_rented);

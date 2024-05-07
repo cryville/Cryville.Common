@@ -4,14 +4,8 @@ namespace Cryville.Common.Buffers {
 	/// </summary>
 	/// <typeparam name="T">The item type of the arrays in the pool.</typeparam>
 	public class ArrayPool<T> {
-		private class Bucket : ObjectPool<T[]> {
-			readonly int _size;
-			public Bucket(int size, int capacity) : base(capacity) {
-				_size = size;
-			}
-			protected override T[] Construct() {
-				return new T[_size];
-			}
+		sealed class Bucket(int size, int capacity) : ObjectPool<T[]>(capacity) {
+			protected override T[] Construct() => new T[size];
 		}
 		readonly Bucket[] _buckets;
 		/// <summary>
@@ -58,8 +52,6 @@ namespace Cryville.Common.Buffers {
 			for (; size != 0; size >>= 1) num++;
 			return num;
 		}
-		static int GetSize(int id) {
-			return 0x10 << id;
-		}
+		static int GetSize(int id) => 0x10 << id;
 	}
 }
