@@ -85,9 +85,6 @@ namespace Cryville.Common.Buffers {
 			_invalidated = false;
 			Updated?.Invoke();
 		}
-#pragma warning disable CS1591
-		public char[] TrustedAsArray() { return _arr; }
-#pragma warning restore CS1591
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the <see cref="TargetString" />.
