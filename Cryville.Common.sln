@@ -5,15 +5,15 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standalone", "Standalone\Standalone.csproj", "{837C40CD-5133-42D7-90D0-2B0A8BCC9A77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.Interop", "Cryville.Common.Interop\Cryville.Common.Interop.csproj", "{5A9F0D71-B564-4164-9050-400C0B3D3A96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Common.Interop", "Cryville.Common.Interop\Cryville.Common.Interop.csproj", "{5A9F0D71-B564-4164-9050-400C0B3D3A96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.Logging", "Cryville.Common.Logging\Cryville.Common.Logging.csproj", "{788FCFBC-F084-4707-A142-F93C1FEDF6BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Common.Logging", "Cryville.Common.Logging\Cryville.Common.Logging.csproj", "{788FCFBC-F084-4707-A142-F93C1FEDF6BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.Buffers", "Cryville.Common.Buffers\Cryville.Common.Buffers.csproj", "{146BA56C-7EE9-4DD6-9D25-86707CA8A363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Common.Buffers", "Cryville.Common.Buffers\Cryville.Common.Buffers.csproj", "{146BA56C-7EE9-4DD6-9D25-86707CA8A363}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.SurrogateHash", "Cryville.Common.SurrogateHash\Cryville.Common.SurrogateHash.csproj", "{314E08E3-95C1-461C-B387-EAE70E1427C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.Collections.PairCollection", "Cryville.Common.Collections.PairCollection\Cryville.Common.Collections.PairCollection.csproj", "{6B7159F8-5F10-4017-BF1C-816FCD87723F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Common.Collections.PairCollection", "Cryville.Common.Collections.PairCollection\Cryville.Common.Collections.PairCollection.csproj", "{6B7159F8-5F10-4017-BF1C-816FCD87723F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Common.Reflection", "Cryville.Common.Reflection\Cryville.Common.Reflection.csproj", "{C900A3B8-A6CA-4795-82E0-FD68B14C9F2A}"
 EndProject
@@ -59,6 +59,10 @@ Global
 		{2322A01D-74CD-4751-B8CB-4904522AB24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2322A01D-74CD-4751-B8CB-4904522AB24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2322A01D-74CD-4751-B8CB-4904522AB24E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7A600D-87CA-404B-AC5B-985A369A9D41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7A600D-87CA-404B-AC5B-985A369A9D41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7A600D-87CA-404B-AC5B-985A369A9D41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7A600D-87CA-404B-AC5B-985A369A9D41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD57FC8B-4945-4771-8407-C5EBD76A4171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD57FC8B-4945-4771-8407-C5EBD76A4171}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD57FC8B-4945-4771-8407-C5EBD76A4171}.Release|Any CPU.ActiveCfg = Release|Any CPU
