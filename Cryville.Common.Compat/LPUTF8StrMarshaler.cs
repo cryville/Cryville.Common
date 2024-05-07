@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Cryville.Common.Interop {
+namespace Cryville.Common.Compat {
 	/// <summary>
 	/// Marshals a UTF-8 string to a .NET Framework string, and vice versa.
 	/// </summary>
 	/// <remarks>
-	/// <para>This marshaler is used as a fallback as <c>UnmanagedType.LPUTF8Str</c> does not exist before .NET Framework 4.7.</para>
+	/// <para>This marshaler is used as a fallback as <c>UnmanagedType.LPUTF8Str</c> is not available before .NET Framework 4.7.</para>
 	/// </remarks>
 	public class LPUTF8StrMarshaler : ICustomMarshaler {
 		/// <summary>
@@ -35,7 +35,7 @@ namespace Cryville.Common.Interop {
 		}
 
 		/// <inheritdoc />
-		public unsafe IntPtr MarshalManagedToNative(object ManagedObj) {
+		public unsafe IntPtr MarshalManagedToNative(object? ManagedObj) {
 			if (ManagedObj == null) return IntPtr.Zero;
 			var obj = (string)ManagedObj;
 			var buffer = Encoding.UTF8.GetBytes(obj);
@@ -47,7 +47,7 @@ namespace Cryville.Common.Interop {
 		}
 
 		/// <inheritdoc />
-		public unsafe object MarshalNativeToManaged(IntPtr pNativeData) {
+		public unsafe object? MarshalNativeToManaged(IntPtr pNativeData) {
 			if (pNativeData == IntPtr.Zero) return null;
 			var ptr = (byte*)pNativeData.ToPointer();
 			var buffer = new List<byte>();
@@ -55,7 +55,7 @@ namespace Cryville.Common.Interop {
 				buffer.Add(*ptr);
 				ptr++;
 			}
-			return Encoding.UTF8.GetString(buffer.ToArray());
+			return Encoding.UTF8.GetString([.. buffer]);
 		}
 	}
 }
