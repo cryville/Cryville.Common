@@ -14,7 +14,14 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageReleaseNotes>## Breaking changes
+- Remove the unsafe `TrustedAsArray()` method in `TargetString`.
+
+## New features
+- Override `ToString()` for `TargetString`.
+
+## Bug fixes
+- Add missing null checks for parameters.</PackageReleaseNotes>
 		<PackageTags>buffer, object pool</PackageTags>
 		<ProjectUrl>https://github.com/cryville/Cryville.Common</ProjectUrl>
 		<RepositoryUrl>https://github.com/cryville/Cryville.Common</RepositoryUrl>
