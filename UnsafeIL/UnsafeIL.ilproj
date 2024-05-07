@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.IL">
+	<PropertyGroup>
+		<TargetFrameworks>netframework3.5;netstandard2.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<AnalysisLevel>latest-all</AnalysisLevel>
+		<Nullable>enable</Nullable>
+		<EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+		<DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Cryville</Authors>
+		<Copyright>Copyright (c) Cryville 2024</Copyright>
+		<Description>Backport of System.Runtime.CompilerServices.Unsafe.</Description>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/cryville/Cryville.Common</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Backport.</PackageReleaseNotes>
+		<PackageTags>unsafe, pointer</PackageTags>
+		<RepositoryUrl>https://github.com/cryville/Cryville.Common</RepositoryUrl>
+		<Version>6.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='netframework3.5'">
+		<Compile Include="net20/UnsafeIL.il" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+		<Compile Include="UnsafeIL.il" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="True" PackagePath="\" />
+	</ItemGroup>
+</Project>

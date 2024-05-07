@@ -1,3 +1,7 @@
+.assembly extern mscorlib {
+	.ver 4:0:0:0
+}
+
 .assembly UnsafeIL {
 	.custom instance void [mscorlib]System.Runtime.CompilerServices.CompilationRelaxationsAttribute::.ctor(int32) = (
 		01 00 08 00 00 00 00 00
