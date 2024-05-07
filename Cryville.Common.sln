@@ -15,9 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.SurrogateHa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.Collections.PairCollection", "Cryville.Common.Collections.PairCollection\Cryville.Common.Collections.PairCollection.csproj", "{6B7159F8-5F10-4017-BF1C-816FCD87723F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Common.Reflection", "Cryville.Common.Reflection\Cryville.Common.Reflection.csproj", "{C900A3B8-A6CA-4795-82E0-FD68B14C9F2A}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Common.Compat", "Cryville.Common.Compat\Cryville.Common.Compat.csproj", "{2322A01D-74CD-4751-B8CB-4904522AB24E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryville.Common.Reflection", "Cryville.Common.Reflection\Cryville.Common.Reflection.csproj", "{C900A3B8-A6CA-4795-82E0-FD68B14C9F2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryville.Interop.Mono", "Cryville.Interop.Mono\Cryville.Interop.Mono.csproj", "{3D7A600D-87CA-404B-AC5B-985A369A9D41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnsafeIL", "UnsafeIL\UnsafeIL.ilproj", "{CD57FC8B-4945-4771-8407-C5EBD76A4171}"
 EndProject

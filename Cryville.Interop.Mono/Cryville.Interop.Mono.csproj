@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netframework3.5;netstandard2.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<AnalysisLevel>latest-all</AnalysisLevel>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Cryville</Authors>
+		<Copyright>Copyright (c) Cryville 2024</Copyright>
+		<Description>Interop library for Mono.</Description>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/cryville/Cryville.Common</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+		<PackageTags>interop, mono</PackageTags>
+		<RepositoryUrl>https://github.com/cryville/Cryville.Common</RepositoryUrl>
+		<Version>1.0.0</Version>
+		<Version>1.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="True" PackagePath="\" />
+	</ItemGroup>
+
+</Project>
