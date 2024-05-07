@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<ProjectGuid>{146BA56C-7EE9-4DD6-9D25-86707CA8A363}</ProjectGuid>
 		<TargetFrameworks>netframework3.5;netstandard2.0</TargetFrameworks>
@@ -14,6 +14,8 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/cryville/Cryville.Common</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>## Breaking changes
 - Remove the unsafe `TrustedAsArray()` method in `TargetString`.
 
@@ -23,7 +25,6 @@
 ## Bug fixes
 - Add missing null checks for parameters.</PackageReleaseNotes>
 		<PackageTags>buffer, object pool</PackageTags>
-		<ProjectUrl>https://github.com/cryville/Cryville.Common</ProjectUrl>
 		<RepositoryUrl>https://github.com/cryville/Cryville.Common</RepositoryUrl>
 		<Version>2.0.0</Version>
 	</PropertyGroup>
@@ -31,4 +32,8 @@
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);USE_SAFE_DLL_IMPORT</DefineConstants>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="README.md" Pack="True" PackagePath="\" />
+	</ItemGroup>
 </Project>
