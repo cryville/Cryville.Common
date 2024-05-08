@@ -1,6 +1,6 @@
 using System;
 
-namespace Cryville.Common.Interop {
+namespace Cryville.Interop.Mono {
 	/// <summary>
 	/// Attribute used to annotate functions that will be called back from the unmanaged world.
 	/// </summary>
