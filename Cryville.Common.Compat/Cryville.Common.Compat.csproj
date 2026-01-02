@@ -10,17 +10,19 @@
 
 	<PropertyGroup>
 		<Authors>Cryville</Authors>
-		<Copyright>Copyright (c) Cryville 2024</Copyright>
+		<Copyright>Copyright (c) Cryville 2024-2025</Copyright>
 		<Description>Compatibility layer porting features from higher .NET versions to lower versions.</Description>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/cryville/Cryville.Common</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Initial release.</PackageReleaseNotes>
 		<PackageTags>compat</PackageTags>
 		<RepositoryUrl>https://github.com/cryville/Cryville.Common</RepositoryUrl>
-		<Version>1.0.0</Version>
+		<Version>1.1.0</Version>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
