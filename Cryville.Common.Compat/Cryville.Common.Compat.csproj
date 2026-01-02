@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netframework3.5;netstandard2.0;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>netframework2.0;netframework3.5;netframework4.0;netframework4.5;netstandard2.0;netstandard2.1;netcoreapp3.0;net6.0;net7.0;net8.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<AnalysisLevel>latest-all</AnalysisLevel>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
