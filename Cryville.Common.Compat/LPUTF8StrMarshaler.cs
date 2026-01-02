@@ -35,8 +35,8 @@ namespace Cryville.Common.Compat {
 		}
 
 		/// <inheritdoc />
-		public unsafe IntPtr MarshalManagedToNative(object? ManagedObj) {
-			if (ManagedObj == null) return IntPtr.Zero;
+		public unsafe IntPtr MarshalManagedToNative(object ManagedObj) {
+			ThrowHelper.ThrowIfNull(ManagedObj);
 			var obj = (string)ManagedObj;
 			var buffer = Encoding.UTF8.GetBytes(obj);
 			var result = Marshal.AllocHGlobal(buffer.Length + 1);
@@ -47,8 +47,9 @@ namespace Cryville.Common.Compat {
 		}
 
 		/// <inheritdoc />
-		public unsafe object? MarshalNativeToManaged(IntPtr pNativeData) {
-			if (pNativeData == IntPtr.Zero) return null;
+		public unsafe object MarshalNativeToManaged(IntPtr pNativeData) {
+			if (pNativeData == IntPtr.Zero)
+				throw new ArgumentNullException(nameof(pNativeData));
 			var ptr = (byte*)pNativeData.ToPointer();
 			var buffer = new List<byte>();
 			while (*ptr != 0) {
