@@ -18,7 +18,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>compat</PackageTags>
 		<RepositoryUrl>https://github.com/cryville/Cryville.Common</RepositoryUrl>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
