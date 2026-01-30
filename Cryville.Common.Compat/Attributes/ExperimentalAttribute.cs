@@ -1,4 +1,6 @@
-#if !NET8_0_OR_GREATER
+#if NET8_0_OR_GREATER
+[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Diagnostics.CodeAnalysis.ExperimentalAttribute))]
+#else
 namespace System.Diagnostics.CodeAnalysis {
 	/// <summary>
 	/// Indicates that an API is experimental and it may change in the future.

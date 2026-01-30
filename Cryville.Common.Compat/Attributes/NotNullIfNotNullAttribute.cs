@@ -1,4 +1,6 @@
-#if !NETSTANDARD2_1_OR_GREATER && !NETCOREAPP3_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_0_OR_GREATER
+[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute))]
+#else
 namespace System.Diagnostics.CodeAnalysis {
 	/// <summary>
 	/// Specifies that the output will be non-null if the named parameter is non-null.

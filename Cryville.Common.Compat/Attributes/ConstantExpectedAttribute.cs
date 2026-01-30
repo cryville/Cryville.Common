@@ -1,4 +1,6 @@
-#if !NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER
+[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Diagnostics.CodeAnalysis.ConstantExpectedAttribute))]
+#else
 namespace System.Diagnostics.CodeAnalysis {
 	/// <summary>
 	/// Indicates that the specified method parameter expects a constant.

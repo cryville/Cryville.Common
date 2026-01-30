@@ -1,4 +1,6 @@
-#if !NETSTANDARD2_1_OR_GREATER && !NETCOREAPP3_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_0_OR_GREATER
+[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute))]
+#else
 namespace System.Diagnostics.CodeAnalysis {
 	/// <summary>
 	/// Specifies that when a method returns <see cref="ReturnValue" />, the parameter may be <see langword="null" /> even if the corresponding type disallows it.

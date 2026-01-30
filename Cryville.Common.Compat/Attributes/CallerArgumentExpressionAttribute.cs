@@ -1,4 +1,6 @@
-#if !NETCOREAPP3_0_OR_GREATER
+#if NETCOREAPP3_0_OR_GREATER
+[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Runtime.CompilerServices.CallerArgumentExpressionAttribute))]
+#else
 namespace System.Runtime.CompilerServices {
 	/// <summary>
 	/// Indicates that a parameter captures the expression passed for another parameter as a string.

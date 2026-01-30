@@ -1,4 +1,6 @@
-#if !NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER
+[assembly: System.Runtime.CompilerServices.TypeForwardedTo(typeof(System.Diagnostics.CodeAnalysis.StringSyntaxAttribute))]
+#else
 namespace System.Diagnostics.CodeAnalysis {
 	/// <summary>
 	/// Specifies the syntax used in a string.
