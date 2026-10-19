@@ -10,7 +10,7 @@
 
 	<PropertyGroup>
 		<Authors>Cryville</Authors>
-		<Copyright>Copyright (c) Cryville 2024-2025</Copyright>
+		<Copyright>Copyright (c) Cryville 2024-2026</Copyright>
 		<Description>Compatibility layer porting features from higher .NET versions to lower versions.</Description>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
